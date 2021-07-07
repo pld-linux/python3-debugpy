@@ -170,7 +170,9 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitedir}/debugpy/_vendored/pydevd/pydev_ipython
 %{py3_sitedir}/debugpy/_vendored/pydevd/pydev_sitecustomize
 %dir %{py3_sitedir}/debugpy/_vendored/pydevd/pydevd_attach_to_process
+%ifarch %{ix86} %{x8664}
 %attr(755,root,root) %{py3_sitedir}/debugpy/_vendored/pydevd/pydevd_attach_to_process/attach_linux_*.so
+%endif
 %{py3_sitedir}/debugpy/_vendored/pydevd/pydevd_attach_to_process/linux_and_mac
 %{py3_sitedir}/debugpy/_vendored/pydevd/pydevd_attach_to_process/*.py
 %{py3_sitedir}/debugpy/_vendored/pydevd/pydevd_attach_to_process/__pycache__
