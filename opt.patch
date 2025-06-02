@@ -1,0 +1,11 @@
+--- debugpy-1.8.14/src/debugpy/_vendored/pydevd/setup_pydevd_cython.py~	2025-04-10 20:57:13.000000000 +0200
++++ debugpy-1.8.14/src/debugpy/_vendored/pydevd/setup_pydevd_cython.py	2025-06-02 10:35:37.566660439 +0200
+@@ -190,7 +190,7 @@
+             # Enabling -flto brings executable from 4MB to 0.56MB and -Os to 0.41MB
+             # Profiling shows an execution around 3-5% slower with -Os vs -O3,
+             # so, kept only -flto.
+-            extra_compile_args = ["-flto", "-O3"]
++            extra_compile_args = ["-flto"]
+             extra_link_args = extra_compile_args[:]
+ 
+             # Note: also experimented with profile-guided optimization. The executable

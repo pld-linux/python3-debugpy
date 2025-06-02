@@ -4,12 +4,13 @@ Summary:	Implementation of the Debug Adapter Protocol for Python
 Summary(pl.UTF-8):	Implementacja protokołu Debug Adapter Protocol dla Pythona
 Name:		python3-debugpy
 Version:	1.8.14
-Release:	1
+Release:	2
 License:	MIT with EPL v1.0, PSF v2, BSD parts
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/debugpy/
 Source0:	https://files.pythonhosted.org/packages/source/d/debugpy/debugpy-%{version}.tar.gz
 # Source0-md5:	4155c8004de85f5f9b39c98fc940aba7
+Patch0:		opt.patch
 URL:		https://pypi.org/project/debugpy/
 BuildRequires:	libstdc++-devel
 BuildRequires:	python3-Cython
@@ -29,6 +30,7 @@ debugpy to implementacja protokołu Debug Adapter Protocol dla Pythona.
 
 %prep
 %setup -q -n debugpy-%{version}
+%patch -P0 -p1
 
 %build
 cd src/debugpy/_vendored/pydevd/pydevd_attach_to_process/linux_and_mac
@@ -58,6 +60,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc DESCRIPTION.md LICENSE README.md src/debugpy/ThirdPartyNotices.txt
+%attr(755,root,root) %{_bindir}/debugpy
+%attr(755,root,root) %{_bindir}/debugpy-adapter
 %dir %{py3_sitedir}/debugpy
 %dir %{py3_sitedir}/debugpy/_vendored
 %dir %{py3_sitedir}/debugpy/_vendored/pydevd
@@ -79,7 +83,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_sys_monitoring
 %{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_sys_monitoring/*.py
 %attr(755,root,root) %{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_sys_monitoring/*.so
-%{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_sys_monitoring/__pycache__/*pydevd*
+%{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_sys_monitoring/__pycache__
 %{py3_sitedir}/debugpy/_vendored/pydevd/pydev_ipython
 %{py3_sitedir}/debugpy/_vendored/pydevd/pydev_sitecustomize
 %dir %{py3_sitedir}/debugpy/_vendored/pydevd/pydevd_attach_to_process
