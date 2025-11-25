@@ -3,23 +3,23 @@
 Summary:	Implementation of the Debug Adapter Protocol for Python
 Summary(pl.UTF-8):	Implementacja protokołu Debug Adapter Protocol dla Pythona
 Name:		python3-debugpy
-Version:	1.8.14
-Release:	2
+Version:	1.8.17
+Release:	1
 License:	MIT with EPL v1.0, PSF v2, BSD parts
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/debugpy/
 Source0:	https://files.pythonhosted.org/packages/source/d/debugpy/debugpy-%{version}.tar.gz
-# Source0-md5:	4155c8004de85f5f9b39c98fc940aba7
+# Source0-md5:	f2837c05bd5cfdc4b364d7076b387e23
 Patch0:		opt.patch
 URL:		https://pypi.org/project/debugpy/
 BuildRequires:	libstdc++-devel
 BuildRequires:	python3-Cython
-BuildRequires:	python3-devel >= 1:3.5
-BuildRequires:	python3-modules >= 1:3.5
+BuildRequires:	python3-devel >= 1:3.8
+BuildRequires:	python3-modules >= 1:3.8
 BuildRequires:	python3-setuptools
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
-Requires:	python3-modules >= 1:3.5
+Requires:	python3-modules >= 1:3.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -50,8 +50,10 @@ rm -rf $RPM_BUILD_ROOT
 %py3_install \
 	--install-lib=%{py3_sitedir}
 
-%{__rm} $RPM_BUILD_ROOT%{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_bundle/pydevd_cython*.{c,so}
+%{__rm} $RPM_BUILD_ROOT%{py3_sitedir}/debugpy/ThirdPartyNotices.txt
+%{__rm} $RPM_BUILD_ROOT%{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_bundle/pydevd_cython*.c
 %{__rm} $RPM_BUILD_ROOT%{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_frame_eval/{.gitignore,pydevd_frame_evaluator.c,release_mem.h}
+%{__rm} $RPM_BUILD_ROOT%{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_sys_monitoring/_pydevd_sys_monitoring_cython.c
 %{__rm} -r $RPM_BUILD_ROOT%{py3_sitedir}/debugpy/_vendored/pydevd/pydevd_attach_to_process/{README.txt,common,linux_and_mac/{.gitignore,attach.cpp,compile_*},winappdbg,windows}
 
 %clean
@@ -72,6 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_bundle/pydevd_cython.pxd
 %{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_bundle/pydevd_cython.pyx
 %{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_bundle/*.py
+%attr(755,root,root) %{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_bundle/*.so
 %{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_bundle/__pycache__
 %{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_bundle/pydevd_concurrency_analyser
 %dir %{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_frame_eval
@@ -82,6 +85,8 @@ rm -rf $RPM_BUILD_ROOT
 %{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_frame_eval/__pycache__
 %dir %{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_sys_monitoring
 %{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_sys_monitoring/*.py
+%{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_sys_monitoring/*.pxd
+%{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_sys_monitoring/*.pyx
 %attr(755,root,root) %{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_sys_monitoring/*.so
 %{py3_sitedir}/debugpy/_vendored/pydevd/_pydevd_sys_monitoring/__pycache__
 %{py3_sitedir}/debugpy/_vendored/pydevd/pydev_ipython
